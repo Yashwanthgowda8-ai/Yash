@@ -3,167 +3,531 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Universal Data Formatter</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <title>Yashwanth S - Oracle Fusion Technical Consultant</title>
     <style>
+        :root {
+            --primary: #f80000;
+            --secondary: #312d2a;
+            --light: #f5f5f5;
+            --dark: #333333;
+            --accent: #0572ce;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
         body {
-            padding: 20px;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
         }
-        .form-control {
-            margin-bottom: 10px;
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
         }
-        .btn {
-            margin-right: 10px;
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
         }
-        pre {
-            background-color: #f8f9fa;
-            padding: 10px;
+        
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            text-align: center;
+        }
+        
+        .profile-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .profile-content {
+            max-width: 600px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.8rem 1.5rem;
             border-radius: 5px;
-            white-space: pre-wrap;
-            word-wrap: break-word;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background-color: #005ea6;
+        }
+        
+        .section {
+            padding: 3rem 0;
+        }
+        
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--primary);
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .skill-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .skill-card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.5rem;
+        }
+        
+        .skill-card ul {
+            list-style-type: none;
+        }
+        
+        .skill-card li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .skill-card li:before {
+            content: "•";
+            color: var(--accent);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .experience-item {
+            margin-bottom: 2rem;
+        }
+        
+        .experience-item h3 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .experience-item p {
+            margin-bottom: 1rem;
+        }
+        
+        .experience-item ul {
+            list-style-type: none;
+            margin-left: 1rem;
+        }
+        
+        .experience-item li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .experience-item li:before {
+            content: "→";
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .contact-item {
+            text-align: center;
+            padding: 1.5rem;
+        }
+        
+        .contact-item i {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+        
+        .testimonial-slider {
+            overflow: hidden;
+            position: relative;
+            height: 200px;
+        }
+        
+        .testimonial {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin: 0 auto;
+            max-width: 800px;
+            text-align: center;
+        }
+        
+        .testimonial p {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial .author {
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section h2 {
+                font-size: 1.5rem;
+            }
+            
+            .profile-section {
+                flex-direction: column;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <h1>Universal Data Formatter</h1>
-    <p>Supports **XML, JSON, and CSV** formatting.</p>
-
-    <form id="dataFormatterForm">
-        <div class="mb-3">
-            <label for="dataString" class="form-label">Option 1: Copy-paste your data here</label>
-            <textarea id="dataString" class="form-control" rows="10" placeholder="Paste your XML, JSON, or CSV here"></textarea>
+    <header>
+        <div class="container">
+            <h1>Yashwanth S</h1>
+            <p>Oracle Fusion Technical Consultant</p>
         </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="dataFile" class="form-label">Option 2: Upload a file</label>
-                    <input type="file" class="form-control" id="dataFile">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="dataType" class="form-label">Select Data Type</label>
-                    <select id="dataType" class="form-select">
-                        <option value="xml">XML</option>
-                        <option value="json" selected>JSON</option>
-                        <option value="csv">CSV</option>
-                    </select>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <div class="profile-section">
+                <img src="myphoto.jpeg" alt="Yashwanth S - Oracle Fusion Technical Consultant" class="profile-image">
+                <div class="profile-content">
+                    <h1>Expert Oracle Cloud Development</h1>
+                    <p id="experience-statement">With <span id="years-of-experience"></span> of experience in Oracle Fusion Applications, SQL, PL/SQL, and Oracle Integration Cloud, I deliver high-quality solutions for your business needs. Available for hourly project work and ready to help you succeed.</p>
+                    <a href="#contact" class="cta-button">Hire Me Now</a>
                 </div>
             </div>
         </div>
+    </section>
+    
+    <section id="about" class="section">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="card">
+                <p>I am an Oracle Fusion Technical Consultant with expertise in SQL, PL/SQL, Oracle Fusion Applications, and Oracle Integration Cloud. My strong problem-solving skills and technical knowledge allow me to deliver efficient and effective solutions for complex business requirements.</p>
+                <p>As a certified Application Integration Professional and Oracle Certified Foundational Associate, I bring professional-grade expertise to every project I undertake. I am currently expanding my skills with advanced training in Oracle Visual Builder Cloud Service (VBCS) and Advanced PL/SQL.</p>
+                <p>I am available for hourly project work and can be engaged for short-term or long-term projects based on your company's needs.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="skills" class="section">
+        <div class="container">
+            <h2>Technical Skills</h2>
+            <div class="skills-container">
+                <div class="skill-card">
+                    <h3>Oracle Fusion Cloud (OFC)</h3>
+                    <ul>
+                        <li>Data Migration/Integration Methods (SOAP, REST, FBDI, ADFDI)</li>
+                        <li>OTBI and Creating Dashboards</li>
+                        <li>BI Publisher (BIP)</li>
+                        <li>Custom ESS Jobs</li>
+                        <li>SQL and PL/SQL Development</li>
+                        <li>Template Creation (RTF and Excel)</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-card">
+                    <h3>Oracle Integration Cloud (OIC)</h3>
+                    <ul>
+                        <li>File Operations</li>
+                        <li>ATP Database Operations</li>
+                        <li>Looping and Scoping</li>
+                        <li>Error Handling</li>
+                        <li>REST and SOAP Services</li>
+                        <li>Real-time Integration Solutions</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-card">
+                    <h3>Database Development</h3>
+                    <ul>
+                        <li>SQL (DML, DCL, DDL)</li>
+                        <li>Complex Joins and Queries</li>
+                        <li>PL/SQL (Objects, Types, Procedures)</li>
+                        <li>Package Development</li>
+                        <li>Data Transformation</li>
+                        <li>Database Management</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-card">
+                    <h3>Certifications & Education</h3>
+                    <ul>
+                        <li>2023 Certified Application Integration Professional</li>
+                        <li>Oracle Certified Foundational Associate</li>
+                        <li>Ultimate SQL Bootcamp</li>
+                        <li>B.E. from Government Engineering College (7.5 CGPA)</li>
+                        <li>Currently pursuing VBCS and Advanced PL/SQL</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="experience" class="section">
+        <div class="container">
+            <h2>Professional Experience</h2>
+            <div class="card">
+                <div class="experience-item">
+                    <h3>Oracle Fusion Technical Consultant</h3>
+                    <p><strong>Cognizant Technology Solutions (2022 - Present)</strong></p>
+                    <h4>Oracle Fusion Application:</h4>
+                    <ul>
+                        <li>Developed and tested numerous reports based on business requirements</li>
+                        <li>Modified seeded Oracle reports for specific business cases</li>
+                        <li>Created templates in RTF and Excel format using Business Intelligence Publisher (BIP)</li>
+                        <li>Developed PL/SQL code to extract and transform data according to business needs</li>
+                        <li>Created custom ESS jobs as per business requirements</li>
+                        <li>Participated in data conversion activities for customers and suppliers</li>
+                    </ul>
+                    
+                    <h4>Oracle Integration Cloud:</h4>
+                    <ul>
+                        <li>Created integration to automate FBDI file loading into Oracle Fusion</li>
+                        <li>Developed full-stack outbound solutions for satellite systems</li>
+                        <li>Built real-time integration to synchronize multiple satellite systems</li>
+                        <li>Implemented error logging and reprocessing mechanisms for error scenarios</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="services" class="section">
+        <div class="container">
+            <h2>Services Offered</h2>
+            <div class="skills-container">
+                <div class="skill-card">
+                    <h3>Oracle Fusion Implementation</h3>
+                    <ul>
+                        <li>Custom Report Development</li>
+                        <li>Data Migration & Conversion</li>
+                        <li>BI Publisher Template Creation</li>
+                        <li>ESS Jobs Development</li>
+                        <li>Oracle Fusion Customization</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-card">
+                    <h3>Integration Services</h3>
+                    <ul>
+                        <li>Oracle Integration Cloud Solutions</li>
+                        <li>Real-time System Integration</li>
+                        <li>Error Handling & Monitoring</li>
+                        <li>REST & SOAP API Development</li>
+                        <li>XML & JSON Processing</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-card">
+                    <h3>Database Services</h3>
+                    <ul>
+                        <li>SQL Query Optimization</li>
+                        <li>PL/SQL Package Development</li>
+                        <li>Data Analysis & Transformation</li>
+                        <li>Database Maintenance</li>
+                        <li>Performance Tuning</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-card">
+                    <h3>Consulting Services</h3>
+                    <ul>
+                        <li>Technical Consultation</li>
+                        <li>Oracle Cloud Implementation</li>
+                        <li>System Architecture Design</li>
+                        <li>Best Practices Implementation</li>
+                        <li>Knowledge Transfer & Training</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="hire" class="section">
+        <div class="container">
+            <h2>Why Hire Me?</h2>
+            <div class="card">
+                <h3>Flexible Engagement Model</h3>
+                <p>I offer hourly-based project work, allowing you to engage my services according to your project needs. Whether you need short-term assistance or ongoing support, I'm available to help.</p>
+                
+                <h3>Certified Expertise</h3>
+                <p>As a certified Oracle professional with <span class="dynamic-experience"></span> of experience, I bring a wealth of knowledge and practical skills to every project.</p>
+                
+                <h3>Full-Stack Oracle Skills</h3>
+                <p>My comprehensive skill set covers Oracle Fusion Cloud, Integration Cloud, and database development, allowing me to handle end-to-end implementation and support.</p>
+                
+                <h3>Problem-Solving Approach</h3>
+                <p>I excel at understanding business requirements and translating them into technical solutions that deliver real value.</p>
+                
+                <h3>Continuous Learning</h3>
+                <p>I am constantly updating my skills and knowledge to stay current with the latest Oracle technologies and best practices.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="contact" class="section">
+        <div class="container">
+            <h2>Contact Me</h2>
+            <div class="card contact-grid">
+                <div class="contact-item">
+                    <i>📱</i>
+                    <h3>Phone</h3>
+                    <p>+91 9964663309</p>
+                </div>
+                
+                <div class="contact-item">
+                    <i>📧</i>
+                    <h3>Email</h3>
+                    <p>yashwanthgowda8@gmail.com</p>
+                </div>
+                
+                <div class="contact-item">
+                    <i>🌐</i>
+                    <h3>Availability</h3>
+                    <p>Available for hourly project work</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="current-year"></span> Yashwanth S - Oracle Fusion Technical Consultant</p>
+            <p>Available for Oracle Cloud development projects on an hourly basis</p>
+        </div>
+    </footer>
 
-        <button type="button" id="formatBtn" class="btn btn-primary">Format Data</button>
-        <button type="button" id="formatNewWindowBtn" class="btn btn-secondary">Format to New Window</button>
-    </form>
-
-    <div id="output" class="mt-4" style="display: none;">
-        <h2>Formatted Output</h2>
-        <pre id="formattedOutput"></pre>
-    </div>
-</div>
-
-<script>
-    document.getElementById("formatBtn").addEventListener("click", function() {
-        formatData(false);
-    });
-
-    document.getElementById("formatNewWindowBtn").addEventListener("click", function() {
-        formatData(true);
-    });
-
-    function formatData(useNewWindow) {
-        const dataString = document.getElementById("dataString").value.trim();
-        const dataFile = document.getElementById("dataFile").files[0];
-        const dataType = document.getElementById("dataType").value;
-
-        if (dataFile) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                processData(e.target.result, dataType, useNewWindow);
-            };
-            reader.readAsText(dataFile);
-        } else if (dataString) {
-            processData(dataString, dataType, useNewWindow);
-        } else {
-            alert("Please provide data input.");
-        }
-    }
-
-    function processData(data, type, useNewWindow) {
-        let formattedData;
-        try {
-            if (type === "xml") {
-                formattedData = formatXml(data);
-            } else if (type === "json") {
-                formattedData = formatJson(data);
-            } else if (type === "csv") {
-                formattedData = formatCsv(data);
+    <script>
+        // Calculate years of experience
+        function calculateExperience() {
+            const startDate = new Date(2021, 8, 1); // September 2021 (months are 0-indexed)
+            const currentDate = new Date();
+            
+            let years = currentDate.getFullYear() - startDate.getFullYear();
+            let months = currentDate.getMonth() - startDate.getMonth();
+            
+            if (months < 0) {
+                years--;
+                months += 12;
             }
-
-            if (useNewWindow) {
-                const newWindow = window.open();
-                newWindow.document.write('<pre>' + escapeHtml(formattedData) + '</pre>');
+            
+            // Format the experience text
+            let experienceText = "";
+            if (years > 0) {
+                experienceText += years + (years === 1 ? " year" : " years");
+                if (months > 0) {
+                    experienceText += " and " + months + (months === 1 ? " month" : " months");
+                }
             } else {
-                document.getElementById("formattedOutput").textContent = formattedData;
-                document.getElementById("output").style.display = "block";
+                experienceText = months + (months === 1 ? " month" : " months");
             }
-        } catch (e) {
-            alert("Error formatting data: " + e.message);
-        }
-    }
-
-    function formatXml(xml) {
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xml, "application/xml");
-
-        if (xmlDoc.getElementsByTagName("parsererror").length) {
-            throw new Error("Invalid XML format.");
-        }
-
-        const serializer = new XMLSerializer();
-        const rawXml = serializer.serializeToString(xmlDoc);
-        return formatXmlString(rawXml, 2);
-    }
-
-    function formatXmlString(xml, indentSize) {
-        let formatted = "";
-        const lines = xml.replace(/>\s+</g, "><").split(/>\s*</);
-        let indent = 0;
-
-        lines.forEach(line => {
-            if (line.match(/^\/\w/)) indent -= 1;
-            formatted += " ".repeat(indentSize * indent) + "<" + line + ">\n";
-            if (line.match(/^<?\w[^>]*[^\/]$/)) indent += 1;
-        });
-
-        return formatted.trim();
-    }
-
-    function formatJson(json) {
-        const parsedJson = JSON.parse(json);
-        return JSON.stringify(parsedJson, null, 4);
-    }
-
-    function formatCsv(csv) {
-        const rows = csv.split("\n").map(row => row.split(","));
-        const colWidths = Array(rows[0].length).fill(0);
-
-        rows.forEach(row => {
-            row.forEach((col, index) => {
-                colWidths[index] = Math.max(colWidths[index], col.trim().length);
+            
+            // Update all elements that should display the experience
+            document.getElementById('years-of-experience').textContent = experienceText;
+            
+            // Update any other elements with the dynamic-experience class
+            const dynamicElements = document.querySelectorAll('.dynamic-experience');
+            dynamicElements.forEach(element => {
+                element.textContent = experienceText;
             });
+        }
+        
+        // Update copyright year
+        function updateCopyrightYear() {
+            const currentYear = new Date().getFullYear();
+            document.getElementById('current-year').textContent = currentYear;
+        }
+        
+        // Run calculations when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            calculateExperience();
+            updateCopyrightYear();
         });
-
-        return rows.map(row => row.map((col, i) => col.trim().padEnd(colWidths[i])).join(" | ")).join("\n");
-    }
-
-    function escapeHtml(unsafe) {
-        return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    }
-</script>
-
+    </script>
 </body>
 </html>
