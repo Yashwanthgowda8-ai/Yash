@@ -28,44 +28,29 @@
     </style>
 </head>
 <body>
-    <pre><code>
-/export class AddDocumentsComponent implements OnInit {
-  addDocumentForm: FormGroup = new FormGroup({});
-
-  // Full lists
-  documentTypes: DocumentTypeResponse[] = [];
-  documentTypesAndCategories: DocumentTypeResponse[] = [];
-
-  // Filtered lists for dropdowns
-  filteredDocumentTypes: DocumentTypeResponse[] = [];
-  filteredDocumentTypesAndCategories: DocumentTypeResponse[] = [];
-
-  classificationType: string = ''; // Ensure this is properly initialized
-
-  ngOnInit() {
-    // Initialize filtered lists with full lists
-    this.filteredDocumentTypes = [...this.documentTypes];
-    this.filteredDocumentTypesAndCategories = [...this.documentTypesAndCategories];
-  }
-
-  // Filters the first dropdown
-  onTypeFilter(value: string): void {
-    this.filteredDocumentTypes = this.documentTypes.filter((type) =>
-      (type.name.toLowerCase().includes(value.toLowerCase()) ||
-        type.categoryName?.toLowerCase().includes(value.toLowerCase())) &&
-      type.classification === this.classificationType
-    );
-  }
-
-  // Filters the second dropdown (fixed version)
-  onCategoryFilter(value: string): void {
-    this.filteredDocumentTypesAndCategories = this.documentTypesAndCategories.filter((category) =>
-      (category.docTypeName.toLowerCase().includes(value.toLowerCase()) ||
-        category.categoryName?.toLowerCase().includes(value.toLowerCase()))
-    );
-  }
-}
-    </code></pre>
+    <pre><code id="codeDisplay">Loading code from Google Drive...</code></pre>
     <a href="index.html">Back to Home</a>
+
+    <script>
+        // Replace FILE_ID with your Google Drive file ID
+        const fileUrl = 'https://drive.google.com/file/d/1rW5U3RHrpSc16jYlbEfs80Oeo7yO_07n/view?usp=drive_link';
+
+        // Fetch and display the text file content
+        fetch(fileUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('codeDisplay').textContent = data;
+            })
+            .catch(error => {
+                document.getElementById('codeDisplay').textContent = 
+                    'Error loading file: ' + error.message + 
+                    '\nEnsure the file is publicly shared and the FILE_ID is correct.';
+            });
+    </script>
 </body>
 </html>
