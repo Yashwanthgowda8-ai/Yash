@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Data Formatter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+        }
+        .form-control {
+            margin-bottom: 10px;
+        }
+        .btn {
+            margin-right: 10px;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Universal Data Formatter</h1>
+    <p>Supports **XML, JSON, and CSV** formatting.</p>
+
+    <form id="dataFormatterForm">
+        <div class="mb-3">
+            <label for="dataString" class="form-label">Option 1: Copy-paste your data here</label>
+            <textarea id="dataString" class="form-control" rows="10" placeholder="Paste your XML, JSON, or CSV here"></textarea>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="dataFile" class="form-label">Option 2: Upload a file</label>
+                    <input type="file" class="form-control" id="dataFile">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="dataType" class="form-label">Select Data Type</label>
+                    <select id="dataType" class="form-select">
+                        <option value="xml">XML</option>
+                        <option value="json" selected>JSON</option>
+                        <option value="csv">CSV</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" id="formatBtn" class="btn btn-primary">Format Data</button>
+        <button type="button" id="formatNewWindowBtn" class="btn btn-secondary">Format to New Window</button>
+    </form>
+
+    <div id="output" class="mt-4" style="display: none;">
+        <h2>Formatted Output</h2>
+        <pre id="formattedOutput"></pre>
+    </div>
+</div>
+
+<script>
+    document.getElementById("formatBtn").addEventListener("click", function() {
+        formatData(false);
+    });
+
+    document.getElementById("formatNewWindowBtn").addEventListener("click", function() {
+        formatData(true);
+    });
+
+    function formatData(useNewWindow) {
+        const dataString = document.getElementById("dataString").value.trim();
+        const dataFile = document.getElementById("dataFile").files[0];
+        const dataType = document.getElementById("dataType").value;
+
+        if (dataFile) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                processData(e.target.result, dataType, useNewWindow);
+            };
+            reader.readAsText(dataFile);
+        } else if (dataString) {
+            processData(dataString, dataType, useNewWindow);
+        } else {
+            alert("Please provide data input.");
+        }
+    }
+
+    function processData(data, type, useNewWindow) {
+        let formattedData;
+        try {
+            if (type === "xml") {
+                formattedData = formatXml(data);
+            } else if (type === "json") {
+                formattedData = formatJson(data);
+            } else if (type === "csv") {
+                formattedData = formatCsv(data);
+            }
+
+            if (useNewWindow) {
+                const newWindow = window.open();
+                newWindow.document.write('<pre>' + escapeHtml(formattedData) + '</pre>');
+            } else {
+                document.getElementById("formattedOutput").textContent = formattedData;
+                document.getElementById("output").style.display = "block";
+            }
+        } catch (e) {
+            alert("Error formatting data: " + e.message);
+        }
+    }
+
+    function formatXml(xml) {
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xml, "application/xml");
+
+        if (xmlDoc.getElementsByTagName("parsererror").length) {
+            throw new Error("Invalid XML format.");
+        }
+
+        const serializer = new XMLSerializer();
+        const rawXml = serializer.serializeToString(xmlDoc);
+        return formatXmlString(rawXml, 2);
+    }
+
+    function formatXmlString(xml, indentSize) {
+        let formatted = "";
+        const lines = xml.replace(/>\s+</g, "><").split(/>\s*</);
+        let indent = 0;
+
+        lines.forEach(line => {
+            if (line.match(/^\/\w/)) indent -= 1;
+            formatted += " ".repeat(indentSize * indent) + "<" + line + ">\n";
+            if (line.match(/^<?\w[^>]*[^\/]$/)) indent += 1;
+        });
+
+        return formatted.trim();
+    }
+
+    function formatJson(json) {
+        const parsedJson = JSON.parse(json);
+        return JSON.stringify(parsedJson, null, 4);
+    }
+
+    function formatCsv(csv) {
+        const rows = csv.split("\n").map(row => row.split(","));
+        const colWidths = Array(rows[0].length).fill(0);
+
+        rows.forEach(row => {
+            row.forEach((col, index) => {
+                colWidths[index] = Math.max(colWidths[index], col.trim().length);
+            });
+        });
+
+        return rows.map(row => row.map((col, i) => col.trim().padEnd(colWidths[i])).join(" | ")).join("\n");
+    }
+
+    function escapeHtml(unsafe) {
+        return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+</script>
+
+</body>
+</html>
