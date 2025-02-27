@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code - Yashwanth S</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border: 1px solid #ddd;
+            overflow-x: auto;
+        }
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #0572ce;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <pre><code>
+/export class AddDocumentsComponent implements OnInit {
+  addDocumentForm: FormGroup = new FormGroup({});
+
+  // Full lists
+  documentTypes: DocumentTypeResponse[] = [];
+  documentTypesAndCategories: DocumentTypeResponse[] = [];
+
+  // Filtered lists for dropdowns
+  filteredDocumentTypes: DocumentTypeResponse[] = [];
+  filteredDocumentTypesAndCategories: DocumentTypeResponse[] = [];
+
+  classificationType: string = ''; // Ensure this is properly initialized
+
+  ngOnInit() {
+    // Initialize filtered lists with full lists
+    this.filteredDocumentTypes = [...this.documentTypes];
+    this.filteredDocumentTypesAndCategories = [...this.documentTypesAndCategories];
+  }
+
+  // Filters the first dropdown
+  onTypeFilter(value: string): void {
+    this.filteredDocumentTypes = this.documentTypes.filter((type) =>
+      (type.name.toLowerCase().includes(value.toLowerCase()) ||
+        type.categoryName?.toLowerCase().includes(value.toLowerCase())) &&
+      type.classification === this.classificationType
+    );
+  }
+
+  // Filters the second dropdown (fixed version)
+  onCategoryFilter(value: string): void {
+    this.filteredDocumentTypesAndCategories = this.documentTypesAndCategories.filter((category) =>
+      (category.docTypeName.toLowerCase().includes(value.toLowerCase()) ||
+        category.categoryName?.toLowerCase().includes(value.toLowerCase()))
+    );
+  }
+}
+    </code></pre>
+    <a href="index.html">Back to Home</a>
+</body>
+</html>
